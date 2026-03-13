@@ -158,9 +158,7 @@ pm2 save
 | Phase | Status      | Features                                    |
 |-------|-------------|---------------------------------------------|
 | 1     | ✅ Complete  | Landing page, Lead form, WhatsApp, Email    |
-| 2     | 🔜 Pending  | Cost Estimator integration (client's tool)  |
-| 3     | 🔜 Pending  | Dashboard auth (JWT / NextAuth)             |
-| 4     | 🔜 Future   | Instagram lead webhook, Analytics           |
+
 
 ---
 
