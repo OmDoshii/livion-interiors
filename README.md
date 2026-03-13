@@ -159,13 +159,3 @@ pm2 save
 |-------|-------------|---------------------------------------------|
 | 1     | ✅ Complete  | Landing page, Lead form, WhatsApp, Email    |
 
-
----
-
-## Important Notes
-
-- Replace all `+91 XXXX XXX XXX` placeholders with actual phone numbers
-- Add real portfolio images to `public/images/` and update the portfolio section
-- Dashboard has **no auth in Phase 1** — add auth before going live
-- WhatsApp messages to leads require the number to have **opted-in** per Meta policy
-- WhatsApp message templates need approval from Meta before sending
