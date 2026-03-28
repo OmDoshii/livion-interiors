@@ -4,9 +4,10 @@ import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import ProcessSection from "@/components/sections/ProcessSection";
+import FounderSection from "@/components/sections/FounderSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ContactSection from "@/components/sections/ContactSection";
-
+ 
 export default function HomePage() {
   return (
     <>
@@ -16,6 +17,7 @@ export default function HomePage() {
         <ServicesSection />
         <PortfolioSection />
         <ProcessSection />
+        <FounderSection />
         <TestimonialsSection />
         <ContactSection />
       </main>
@@ -23,3 +25,4 @@ export default function HomePage() {
     </>
   );
 }
+ 

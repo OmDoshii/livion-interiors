@@ -51,7 +51,7 @@ export default function HeroSection() {
                         style={{ opacity: loaded ? 1 : 0, transition: `opacity 0.3s ease ${300 + i * 60}ms` }} />
                 ))}
               </div>
-              <span className="section-tag mb-0">Premium Interiors · Hyderabad</span>
+              <span className="section-tag mb-0">Live Your Vision</span>
             </div>
 
             {/* Headline — word by word */}
