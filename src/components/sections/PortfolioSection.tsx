@@ -1,33 +1,42 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useScrollAnimation, animClass } from "@/hooks/useScrollAnimation";
 
-const projects = [
-  { title: "Modern 3BHK",   location: "Gachibowli",   size: "1,450 sq ft", tag: "3BHK",  col: "lg:col-span-2" },
-  { title: "Compact 2BHK",  location: "Kondapur",     size: "1,050 sq ft", tag: "2BHK",  col: "" },
-  { title: "Premium Villa", location: "Jubilee Hills", size: "3,200 sq ft", tag: "Villa", col: "" },
-  { title: "Luxury 3BHK",   location: "Banjara Hills", size: "1,800 sq ft", tag: "3BHK",  col: "lg:col-span-2" },
-];
+interface Project {
+  id: string; title: string; location: string;
+  size: string; tag: string; image_url: string | null;
+  is_featured: boolean; sort_order: number;
+}
 
-function ProjectCard({ project, idx }: { project: typeof projects[0]; idx: number }) {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+function ProjectCard({ project, idx, isVisible }: { project: Project; idx: number; isVisible: boolean }) {
+  const isFeatured = project.is_featured;
 
   return (
     <div
-      ref={ref}
-      className={`relative group overflow-hidden bg-cream-300 ${project.col}
+      className={`relative group overflow-hidden bg-cream-300 ${isFeatured ? "lg:col-span-2" : ""}
                   ${animClass(isVisible, "scale-up", idx * 100)}`}
       style={{ borderRadius: "2px" }}
     >
-      {/* Image placeholder */}
-      <div className="absolute inset-0 bg-cream-300 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-xs text-cream-400 tracking-widest uppercase mb-1">Project Image</p>
-          <p className="text-xs text-cream-300">1200 × 900px</p>
-        </div>
+      {/* Image */}
+      <div className="absolute inset-0">
+        {project.image_url ? (
+          <Image
+            src={project.image_url}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="w-full h-full bg-cream-300 flex items-center justify-center">
+            <p className="text-xs text-cream-400 tracking-widest uppercase">Project Image</p>
+          </div>
+        )}
       </div>
 
-      {/* Overlay — slides up on hover */}
+      {/* Overlay slides up on hover */}
       <div className="absolute inset-0 bg-charcoal/75 translate-y-full group-hover:translate-y-0
                       transition-transform duration-500 ease-out flex flex-col justify-end p-6 z-10">
         <span className="text-[10px] tracking-[0.2em] uppercase text-gold mb-2
@@ -50,15 +59,24 @@ function ProjectCard({ project, idx }: { project: typeof projects[0]; idx: numbe
         <span className="text-[10px] tracking-[0.15em] uppercase text-charcoal">{project.tag}</span>
       </div>
 
-      {/* Corner accent line — grows on hover */}
+      {/* Gold line */}
       <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gold group-hover:w-full
-                      transition-all duration-600 ease-out z-20" />
+                      transition-all duration-500 ease-out z-20" />
     </div>
   );
 }
 
 export default function PortfolioSection() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: gridRef,   isVisible: gridVisible   } = useScrollAnimation({ threshold: 0.05 });
+
+  useEffect(() => {
+    fetch("/api/admin/portfolio")
+      .then((r) => r.json())
+      .then((d) => { if (d.success) setProjects(d.data); })
+      .catch(console.error);
+  }, []);
 
   return (
     <section id="portfolio" className="py-section bg-cream-200">
@@ -77,16 +95,24 @@ export default function PortfolioSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[300px]">
-          {projects.map((project, idx) => (
-            <ProjectCard key={project.title} project={project} idx={idx} />
-          ))}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[300px]">
+          {projects.length === 0 ? (
+            // Placeholder skeletons while loading
+            [...Array(4)].map((_, i) => (
+              <div key={i} className={`bg-cream-300 animate-pulse ${i === 0 || i === 3 ? "lg:col-span-2" : ""}`}
+                   style={{ borderRadius: "2px" }} />
+            ))
+          ) : (
+            projects.map((project, idx) => (
+              <ProjectCard key={project.id} project={project} idx={idx} isVisible={gridVisible} />
+            ))
+          )}
         </div>
 
         <div className="text-center mt-10">
           <p className="text-sm text-charcoal-muted mb-4">See more of our work on Instagram</p>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-             className="btn-outline inline-flex hover:gap-3 transition-all duration-300">
+             className="btn-outline inline-flex">
             @livioninteriors
           </a>
         </div>
