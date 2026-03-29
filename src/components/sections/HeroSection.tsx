@@ -5,11 +5,46 @@ import { ArrowDown, Star } from "lucide-react";
 
 export default function HeroSection() {
   const [loaded, setLoaded] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  // Wait for the preloader-exit event before starting hero animations.
+  // Falls back after 3s in case preloader is not rendered (e.g. fast reload).
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 80);
-    return () => clearTimeout(t);
+    let animTimer: ReturnType<typeof setTimeout>;
+    let preloaderHandled = false;
+
+    const handlePreloaderExit = () => {
+      preloaderHandled = true;
+      animTimer = setTimeout(() => setLoaded(true), 120);
+    };
+
+    window.addEventListener("preloader-exit", handlePreloaderExit, {
+      once: true,
+    });
+
+    const fallback = setTimeout(() => {
+      if (!preloaderHandled) setLoaded(true);
+    }, 3200);
+
+    return () => {
+      window.removeEventListener("preloader-exit", handlePreloaderExit);
+      clearTimeout(animTimer);
+      clearTimeout(fallback);
+    };
   }, []);
+
+  // Mouse parallax — only active after page is revealed
+  useEffect(() => {
+    if (!loaded) return;
+    const onMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: e.clientX / window.innerWidth - 0.5,
+        y: e.clientY / window.innerHeight - 0.5,
+      });
+    };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMouseMove);
+  }, [loaded]);
 
   const anim = (delay: number) =>
     `transition-all duration-700 ease-out ${
@@ -19,12 +54,16 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col grain-overlay overflow-hidden bg-cream-100">
 
-      {/* Ambient gold orb — top right */}
+      {/* Ambient gold orb — top right, parallax */}
       <div
         className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
         style={{
           background: "radial-gradient(circle at 70% 30%, rgba(201,181,156,0.18) 0%, transparent 65%)",
           animation: "pulse 6s ease-in-out infinite",
+          transform: loaded
+            ? `translate(${mousePos.x * 40}px, ${mousePos.y * 40}px)`
+            : undefined,
+          transition: "transform 0.15s linear",
         }}
       />
 
@@ -108,10 +147,19 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right — Image block */}
-          <div className={`order-1 lg:order-2 relative transition-all duration-1000 ease-out
-                           ${loaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-               style={{ transitionDelay: "300ms" }}>
+          {/* Right — Image block, reveal + mouse parallax */}
+          <div
+            className="order-1 lg:order-2 relative"
+            style={{
+              opacity: loaded ? 1 : 0,
+              transform: loaded
+                ? `translateX(0) translateX(${mousePos.x * 30}px) translateY(${mousePos.y * 20}px)`
+                : "translateX(32px)",
+              transition: loaded
+                ? "opacity 1s ease-out 300ms, transform 1s ease-out 300ms"
+                : "opacity 1s ease-out 300ms, transform 1s ease-out 300ms",
+            }}
+          >
             <div className="relative">
 
               {/* Image container with subtle zoom on load */}
@@ -143,13 +191,27 @@ export default function HeroSection() {
                 <p className="text-xs text-cream-400 tracking-wide mt-1">All residential sizes covered</p>
               </div>
 
-              {/* Gold accent squares */}
-              <div className={`absolute -top-4 -right-4 w-12 h-12 bg-gold opacity-25 hidden lg:block
+              {/* Gold accent squares — extra parallax layer */}
+              <div
+                className="hidden lg:block"
+                style={{
+                  transform: loaded
+                    ? `translate(${mousePos.x * -16}px, ${mousePos.y * -16}px)`
+                    : undefined,
+                  transition: "transform 0.2s linear",
+                }}
+              >
+                <div
+                  className={`absolute -top-4 -right-4 w-12 h-12 bg-gold
                                transition-all duration-700 ${loaded ? "opacity-25 scale-100" : "opacity-0 scale-75"}`}
-                   style={{ transitionDelay: "1100ms" }} />
-              <div className={`absolute -top-2 -right-2 w-12 h-12 border border-cream-400 hidden lg:block
+                  style={{ transitionDelay: "1100ms" }}
+                />
+                <div
+                  className={`absolute -top-2 -right-2 w-12 h-12 border border-cream-400
                                transition-all duration-700 ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
-                   style={{ transitionDelay: "1200ms" }} />
+                  style={{ transitionDelay: "1200ms" }}
+                />
+              </div>
             </div>
           </div>
         </div>

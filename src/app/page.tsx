@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
+import MarqueeStrip from "@/components/ui/MarqueeStrip";
 import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import ProcessSection from "@/components/sections/ProcessSection";
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
+        <MarqueeStrip />
         <ServicesSection />
         <PortfolioSection />
         <ProcessSection />

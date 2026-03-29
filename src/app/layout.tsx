@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Preloader from "@/components/ui/Preloader";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import CursorOrb from "@/components/ui/CursorOrb";
 
 export const metadata: Metadata = {
   title: "Livion Interiors — Premium Residential Interiors, Hyderabad",
@@ -38,7 +41,12 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#F9F8F6" />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Preloader />
+        <ScrollProgress />
+        <CursorOrb />
+        {children}
+      </body>
     </html>
   );
 }
