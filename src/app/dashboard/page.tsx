@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { cn, getStatusColor, getStatusLabel, formatDate } from "@/lib/utils";
 import type { Lead, LeadStatus } from "@/types";
+import { FloatingNav } from "@/components/dashboard/FloatingNav";
 
 const STATUSES: { id: LeadStatus; label: string; color: string }[] = [
   { id: "new",        label: "New Leads",     color: "border-blue-400"   },
@@ -144,11 +145,12 @@ export default function DashboardPage() {
     });
   };
 
+  const q = search.toLowerCase();
   const filtered = leads.filter((l) =>
     search === "" ||
-    l.name.toLowerCase().includes(search.toLowerCase()) ||
-    l.phone.includes(search) ||
-    l.projectLocation.toLowerCase().includes(search.toLowerCase())
+    l.name?.toLowerCase().includes(q) ||
+    l.phone?.includes(search) ||
+    l.projectLocation?.toLowerCase().includes(q)
   );
 
   const byStatus = (status: LeadStatus) =>
@@ -168,6 +170,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-cream-100">
+      <FloatingNav />
       {/* Top Bar */}
       <header className="bg-white border-b border-cream-200 sticky top-0 z-30">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">

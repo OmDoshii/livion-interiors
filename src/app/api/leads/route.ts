@@ -107,7 +107,12 @@ export async function GET(req: NextRequest) {
       ? [limit, offset, status]
       : [limit, offset];
 
-    const leads = await query(
+    const rows = await query<{
+      id: string; name: string; phone: string;
+      project_location: string; flat_size: string; possession_date: string;
+      budget_range: string; status: string; source: string;
+      created_at: string; updated_at: string; notes: string | null;
+    }>(
       `SELECT id, name, phone, project_location, flat_size, possession_date,
               budget_range, status, source, created_at, updated_at, notes
        FROM leads
@@ -116,6 +121,21 @@ export async function GET(req: NextRequest) {
        LIMIT $1 OFFSET $2`,
       params
     );
+
+    const leads = rows.map((r) => ({
+      id:              r.id,
+      name:            r.name,
+      phone:           r.phone,
+      projectLocation: r.project_location,
+      flatSize:        r.flat_size,
+      possessionDate:  r.possession_date,
+      budgetRange:     r.budget_range,
+      status:          r.status,
+      source:          r.source,
+      createdAt:       r.created_at,
+      updatedAt:       r.updated_at,
+      notes:           r.notes,
+    }));
 
     const [{ count }] = await query<{ count: string }>(
       `SELECT COUNT(*) as count FROM leads ${whereClause}`,

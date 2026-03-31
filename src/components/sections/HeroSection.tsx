@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, Star } from "lucide-react";
+import Image from "next/image";
 
 export default function HeroSection() {
   const [loaded, setLoaded] = useState(false);
@@ -168,15 +169,13 @@ export default function HeroSection() {
                              ${loaded ? "scale-100" : "scale-105"}`}
                 style={{ aspectRatio: "4/5", borderRadius: "2px" }}
               >
-                <div className="absolute inset-0 flex items-center justify-center bg-cream-200">
-                  <div className="text-center">
-                    <div className="w-16 h-16 border border-cream-400 flex items-center justify-center mx-auto mb-4">
-                      <span className="font-display text-2xl text-cream-400">L</span>
-                    </div>
-                    <p className="text-xs text-cream-400 tracking-widest uppercase">Hero Image</p>
-                    <p className="text-xs text-cream-300 mt-1">1200 × 1500px recommended</p>
-                  </div>
-                </div>
+                <Image
+                  src="/images/review-1.jpg"
+                  alt="Livion Interiors — beautifully designed home"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
 
               {/* Floating card — bottom right */}

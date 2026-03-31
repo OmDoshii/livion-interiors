@@ -77,7 +77,7 @@ export default function Footer() {
               { label: "Our Process",     href: "#process"   },
               { label: "About Founder",   href: "#about"     },
               { label: "Get a Quote",     href: "#contact"   },
-              { label: "Cost Estimator",  href: "/estimator" },
+              { label: "Admin Panel",  href: "/admin/login" },
             ].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="text-sm text-cream-300 hover:text-cream-100 transition-colors duration-200 font-body font-light">
