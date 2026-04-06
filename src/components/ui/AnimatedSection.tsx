@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useScrollAnimation, animClass } from "@/hooks/useScrollAnimation";
 
 interface AnimatedSectionProps {
@@ -19,13 +20,10 @@ export default function AnimatedSection({
 }: AnimatedSectionProps) {
   const { ref, isVisible } = useScrollAnimation();
 
-  return (
-    // @ts-expect-error dynamic tag
-    <Tag
-      ref={ref}
-      className={`${animClass(isVisible, animation, delay)} ${className}`}
-    >
-      {children}
-    </Tag>
-  );
+  const props = {
+    ref,
+    className: `${animClass(isVisible, animation, delay)} ${className}`,
+  };
+
+  return React.createElement(Tag, props, children);
 }
