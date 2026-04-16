@@ -41,12 +41,12 @@ export default function Footer() {
             Premium residential interior design in Hyderabad. Crafting spaces that reflect your lifestyle.
           </p>
           <div className="flex gap-3">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.instagram.com/livioninteriors" target="_blank" rel="noopener noreferrer"
                aria-label="Instagram"
                className="w-9 h-9 border border-charcoal-light flex items-center justify-center text-cream-300 hover:border-gold hover:text-gold transition-all duration-200">
               <Instagram size={15} />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.facebook.com/share/1JCWCA9Wge/" target="_blank" rel="noopener noreferrer"
                aria-label="Facebook"
                className="w-9 h-9 border border-charcoal-light flex items-center justify-center text-cream-300 hover:border-gold hover:text-gold transition-all duration-200">
               <Facebook size={15} />
@@ -98,14 +98,14 @@ export default function Footer() {
             </li>
             <li className="flex gap-3 items-center">
               <Phone size={14} className="text-gold shrink-0" />
-              <a href="tel:+91XXXXXXXXXX" className="text-sm text-cream-300 hover:text-cream-100 transition-colors duration-200">
-                +91 XXXX XXX XXX
+              <a href="tel:+917995758720" className="text-sm text-cream-300 hover:text-cream-100 transition-colors duration-200">
+                +91 7995 758 720
               </a>
             </li>
             <li className="flex gap-3 items-center">
               <Mail size={14} className="text-gold shrink-0" />
-              <a href="mailto:hello@livioninteriors.com" className="text-sm text-cream-300 hover:text-cream-100 transition-colors duration-200">
-                hello@livioninteriors.com
+              <a href="mailto:livioninteriors@gmail.com" className="text-sm text-cream-300 hover:text-cream-100 transition-colors duration-200">
+                livioninteriors@gmail.com
               </a>
             </li>
           </ul>

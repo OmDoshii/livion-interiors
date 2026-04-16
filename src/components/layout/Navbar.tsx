@@ -70,11 +70,11 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="tel:+91XXXXXXXXXX"
+              href="tel:+917995758720"
               className="flex items-center gap-2 text-xs text-charcoal-muted hover:text-charcoal transition-colors duration-200"
             >
               <Phone size={13} />
-              <span className="tracking-wide">+91 XXXX XXX XXX</span>
+              <span className="tracking-wide">+91 7995 758 720</span>
             </a>
             <a href="#contact" className="btn-primary text-xs py-3 px-6">
               Free Consultation
@@ -99,18 +99,7 @@ export default function Navbar() {
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
       >
-        {/* Logo in mobile menu */}
-        <div className="absolute top-3 left-4 sm:left-6">
-          <Image
-            src="/images/logo-transparent.png"
-            alt="Livion Interiors"
-            width={180}
-            height={72}
-            className="h-16 w-auto object-contain"
-          />
-        </div>
- 
-        <ul className="space-y-6 mb-12">
+        <ul className="space-y-6 mb-12 pt-24">
           {navLinks.map((link, i) => (
             <li
               key={link.href}
@@ -136,9 +125,9 @@ export default function Navbar() {
         <a href="#contact" onClick={() => setMenuOpen(false)} className="btn-primary self-start">
           Free Consultation
         </a>
-        <a href="tel:+91XXXXXXXXXX" className="flex items-center gap-2 mt-4 text-sm text-charcoal-muted">
+        <a href="tel:+917995758720" className="flex items-center gap-2 mt-4 text-sm text-charcoal-muted">
           <Phone size={14} />
-          +91 XXXX XXX XXX
+          +91 7995 758 720
         </a>
       </div>
     </>

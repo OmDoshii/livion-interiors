@@ -128,7 +128,7 @@ export default function LeadForm() {
           Our design consultant will reach out to you within 2 hours on WhatsApp. Keep an eye on your messages!
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="https://wa.me/91XXXXXXXXXX" className="btn-gold text-sm py-3 px-6">
+          <a href="https://wa.me/917995758720" className="btn-gold text-sm py-3 px-6">
             Chat on WhatsApp
           </a>
           <a href="#portfolio" className="btn-outline text-sm py-3 px-6">

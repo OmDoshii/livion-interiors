@@ -5,8 +5,8 @@ import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useScrollAnimation, animClass } from "@/hooks/useScrollAnimation";
 
 const contactDetails = [
-  { icon: Phone,   label: "Call / WhatsApp", value: "+91 XXXX XXX XXX",          href: "tel:+91XXXXXXXXXX"                },
-  { icon: Mail,    label: "Email",            value: "hello@livioninteriors.com",  href: "mailto:hello@livioninteriors.com" },
+  { icon: Phone,   label: "Call / WhatsApp", value: "+91 7995 758 720",          href: "tel:+917995758720"                },
+  { icon: Mail,    label: "Email",            value: "livioninteriors@gmail.com",  href: "mailto:livioninteriors@gmail.com" },
   { icon: MapPin,  label: "Studio",           value: "Hyderabad, Telangana",       href: null                              },
   { icon: Clock,   label: "Working Hours",    value: "Mon – Sat, 9:00 AM – 7:00 PM", href: null                           },
 ];
@@ -61,7 +61,7 @@ export default function ContactSection() {
             </ul>
 
             <a
-              href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20interior%20design%20for%20my%20home."
+              href="https://wa.me/917995758720?text=Hi%2C%20I%27m%20interested%20in%20interior%20design%20for%20my%20home."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 text-sm font-body

@@ -44,7 +44,7 @@ export default function ThankYouPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://wa.me/91XXXXXXXXXX"
+              href="https://wa.me/917995758720"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 text-sm font-body hover:bg-[#1ebe5d] transition-colors"
