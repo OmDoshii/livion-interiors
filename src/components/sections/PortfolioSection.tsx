@@ -111,7 +111,7 @@ export default function PortfolioSection() {
 
         <div className="text-center mt-10">
           <p className="text-sm text-charcoal-muted mb-4">See more of our work on Instagram</p>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.instagram.com/livioninteriors" target="_blank" rel="noopener noreferrer"
              className="btn-outline inline-flex">
             @livioninteriors
           </a>
