@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "InteriorDesigner"],
+  "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
   name: "Livion Interiors",
   url: BASE_URL,
   logo: `${BASE_URL}/images/logo-white-bg.png`,
