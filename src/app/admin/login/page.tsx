@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Loader2, Lock, User, Eye, EyeOff } from "lucide-react";
+import { Loader2, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -121,6 +121,16 @@ export default function AdminLoginPage() {
               className="btn-primary w-full justify-center mt-2 disabled:opacity-60"
             >
               {loading ? <><Loader2 size={14} className="animate-spin" /> Signing in…</> : "Sign In"}
+            </button>
+
+            {/* Back to website */}
+            <button
+              type="button"
+              onClick={() => router.push("/")}
+              className="btn-outline w-full justify-center flex items-center gap-2"
+            >
+              <ArrowLeft size={14} />
+              Back to Website
             </button>
           </form>
         </div>

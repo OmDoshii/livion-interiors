@@ -113,7 +113,7 @@ export default function HeroSection() {
             <p className={`text-sub text-charcoal-light max-w-md mb-8 ${anim(0)}`}
                style={{ transitionDelay: "680ms" }}>
               Livion Interiors transforms 2BHK, 3BHK &amp; Villa spaces into
-              beautiful, liveable homes — with turnkey execution across Hyderabad.
+              beautiful, liveable homes with turnkey execution across Hyderabad.
             </p>
 
             {/* Stats */}
@@ -186,7 +186,7 @@ export default function HeroSection() {
                              ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                 style={{ transitionDelay: "900ms" }}
               >
-                <p className="font-display text-lg font-light">2BHK to Villas</p>
+                <p className="font-display text-lg text-white">2BHK to Villas</p>
                 <p className="text-xs text-cream-400 tracking-wide mt-1">All residential sizes covered</p>
               </div>
 

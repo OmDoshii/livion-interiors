@@ -5,7 +5,7 @@ import { useScrollAnimation, animClass } from "@/hooks/useScrollAnimation";
 const steps = [
   { number: "01", title: "Free Consultation",     desc: "Share your requirements through our form or call. We understand your vision, budget, and timeline before anything else.", duration: "Day 1" },
   { number: "02", title: "Site Visit & Measurement", desc: "Our design consultant visits your home, takes precise measurements, and assesses the space for design possibilities.", duration: "Day 2–3" },
-  { number: "03", title: "Design Presentation",   desc: "We present 2D layouts, 3D visualisations, and material samples — so you can see exactly what your home will look like.", duration: "Week 1–2" },
+  { number: "03", title: "Design Presentation",   desc: "We present 2D layouts, 3D visualisations, and material samples so you can see exactly what your home will look like.", duration: "Week 1–2" },
   { number: "04", title: "Quotation & Approval",  desc: "Detailed, transparent cost breakdown. No hidden charges. We finalise designs and materials together before execution begins.", duration: "Week 2" },
   { number: "05", title: "Execution & Delivery",  desc: "Our skilled craftsmen bring your design to life with factory-made furniture, quality materials, and professional installation.", duration: "6–10 Weeks" },
   { number: "06", title: "Handover & Support",    desc: "We do a detailed walkthrough, address any punch-list items, and provide post-handover support so you settle in comfortably.", duration: "Final Day" },

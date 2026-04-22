@@ -87,7 +87,7 @@ export default function FounderSection() {
               {[
                 "Ar. Nimitesh Chaturvedi is the founder of Livion Interiors, specialising in residential interior design and execution. With 2 years of hands-on experience, he focuses on delivering practical, budget-conscious, and well-executed spaces.",
                 "A graduate of GITAM University, Hyderabad (Bachelor of Architecture), his approach combines design understanding with on-site execution, material knowledge, and client coordination.",
-                "At Livion Interiors, every project is handled with attention to detail, clear communication, and a strong focus on delivering what is designed — without unnecessary complications.",
+                "At Livion Interiors, every project is handled with attention to detail, clear communication, and a strong focus on delivering what is designed without unnecessary complications.",
               ].map((para, i) => (
                 <p
                   key={i}

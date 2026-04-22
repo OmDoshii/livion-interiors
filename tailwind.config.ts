@@ -29,9 +29,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["'Cormorant Garamond'", "serif"],
+        display: ["'Raleway'", "sans-serif"],
         body:    ["'DM Sans'", "sans-serif"],
-        accent:  ["'Cormorant'", "serif"],
+        accent:  ["'Raleway'", "sans-serif"],
       },
       fontSize: {
         "hero":  ["clamp(3rem, 7vw, 6rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],

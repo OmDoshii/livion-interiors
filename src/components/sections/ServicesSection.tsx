@@ -7,7 +7,7 @@ const services = [
   {
     icon: Home,
     title: "2BHK Interiors",
-    desc: "Complete interior solutions for 2-bedroom apartments — from modular kitchens to living spaces.",
+    desc: "Complete interior solutions for 2-bedroom apartments from modular kitchens to living spaces.",
     features: ["Modular Kitchen", "Master Bedroom", "Living & Dining", "Wardrobes"],
   },
   {
@@ -25,7 +25,7 @@ const services = [
   {
     icon: Sofa,
     title: "Turnkey Execution",
-    desc: "End-to-end delivery — we handle design, procurement, and execution so you don't have to.",
+    desc: "End-to-end delivery, we handle design, procurement, and execution so you don't have to.",
     features: ["Single Point of Contact", "On-time Delivery", "Quality Assurance", "Post-handover Support"],
   },
   {
@@ -37,7 +37,7 @@ const services = [
   {
     icon: Ruler,
     title: "Custom Furniture",
-    desc: "Bespoke furniture crafted to fit your space perfectly — wardrobes, beds, TV units, and more.",
+    desc: "Bespoke furniture crafted to fit your space perfectly; wardrobes, beds, TV units, and more.",
     features: ["100% Customised", "Factory Made", "ISI Certified Ply", "10 Year Warranty"],
   },
 ];
