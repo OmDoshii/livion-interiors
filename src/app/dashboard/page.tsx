@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Phone, MapPin, Home, Calendar, Wallet,
   RefreshCw, ChevronDown, Search, Filter,
-  TrendingUp, Users, CheckCircle, Clock
+  TrendingUp, Users, CheckCircle, Clock, Trash2
 } from "lucide-react";
 import { cn, getStatusColor, getStatusLabel, formatDate } from "@/lib/utils";
 import type { Lead, LeadStatus } from "@/types";
@@ -38,8 +38,13 @@ function StatCard({ icon: Icon, label, value, sub, color }: {
 }
 
 // ─── Lead Card ────────────────────────────────────────────────────────────────
-function LeadCard({ lead, onStatusChange }: { lead: Lead; onStatusChange: (id: string, status: LeadStatus) => void }) {
-  const [open, setOpen] = useState(false);
+function LeadCard({ lead, onStatusChange, onDelete }: {
+  lead: Lead;
+  onStatusChange: (id: string, status: LeadStatus) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [open,    setOpen]    = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   return (
     <div className="bg-white border border-cream-200 p-4 shadow-card hover:shadow-lifted transition-all duration-200" style={{ borderRadius: "2px" }}>
@@ -83,31 +88,63 @@ function LeadCard({ lead, onStatusChange }: { lead: Lead; onStatusChange: (id: s
       <div className="flex items-center justify-between">
         <p className="text-[10px] text-charcoal-muted">{formatDate(lead.createdAt)}</p>
 
-        {/* Status selector */}
-        <div className="relative">
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex items-center gap-1 text-xs text-charcoal-light border border-cream-300 px-2 py-1 hover:border-gold transition-colors"
-            style={{ borderRadius: "2px" }}
-          >
-            Move to <ChevronDown size={10} />
-          </button>
-          {open && (
-            <div
-              className="absolute right-0 bottom-full mb-1 bg-white border border-cream-200 shadow-lifted z-20 min-w-[140px]"
+        <div className="flex items-center gap-2">
+          {/* Delete button */}
+          {confirm ? (
+            <div className="flex items-center gap-1">
+              <span className="text-[10px] text-red-500">Remove?</span>
+              <button
+                onClick={() => { onDelete(lead.id); setConfirm(false); }}
+                className="text-[10px] px-2 py-0.5 bg-red-500 text-white hover:bg-red-600 transition-colors"
+                style={{ borderRadius: "2px" }}
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setConfirm(false)}
+                className="text-[10px] px-2 py-0.5 border border-cream-300 text-charcoal-muted hover:border-charcoal transition-colors"
+                style={{ borderRadius: "2px" }}
+              >
+                No
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setConfirm(true)}
+              className="p-1 text-cream-400 hover:text-red-500 transition-colors"
+              aria-label="Remove lead"
+              title="Remove lead"
+            >
+              <Trash2 size={13} />
+            </button>
+          )}
+
+          {/* Status selector */}
+          <div className="relative">
+            <button
+              onClick={() => setOpen(!open)}
+              className="flex items-center gap-1 text-xs text-charcoal-light border border-cream-300 px-2 py-1 hover:border-gold transition-colors"
               style={{ borderRadius: "2px" }}
             >
-              {STATUSES.filter((s) => s.id !== lead.status).map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => { onStatusChange(lead.id, s.id); setOpen(false); }}
-                  className="w-full text-left px-3 py-2 text-xs text-charcoal hover:bg-cream-100 transition-colors font-body"
-                >
-                  {s.label}
-                </button>
-              ))}
-            </div>
-          )}
+              Move to <ChevronDown size={10} />
+            </button>
+            {open && (
+              <div
+                className="absolute right-0 bottom-full mb-1 bg-white border border-cream-200 shadow-lifted z-20 min-w-[140px]"
+                style={{ borderRadius: "2px" }}
+              >
+                {STATUSES.filter((s) => s.id !== lead.status).map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => { onStatusChange(lead.id, s.id); setOpen(false); }}
+                    className="w-full text-left px-3 py-2 text-xs text-charcoal hover:bg-cream-100 transition-colors font-body"
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -143,6 +180,11 @@ export default function DashboardPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
+  };
+
+  const handleDelete = async (id: string) => {
+    setLeads((prev) => prev.filter((l) => l.id !== id));
+    await fetch(`/api/leads/${id}`, { method: "DELETE" });
   };
 
   const q = search.toLowerCase();
@@ -252,7 +294,7 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   byStatus(col.id).map((lead) => (
-                    <LeadCard key={lead.id} lead={lead} onStatusChange={handleStatusChange} />
+                    <LeadCard key={lead.id} lead={lead} onStatusChange={handleStatusChange} onDelete={handleDelete} />
                   ))
                 )}
               </div>
@@ -301,16 +343,30 @@ export default function DashboardPage() {
                     </td>
                     <td className="px-4 py-3 text-xs text-charcoal-muted">{formatDate(lead.createdAt)}</td>
                     <td className="px-4 py-3">
-                      <select
-                        value={lead.status}
-                        onChange={(e) => handleStatusChange(lead.id, e.target.value as LeadStatus)}
-                        className="text-xs border border-cream-300 bg-cream-100 px-2 py-1 focus:outline-none focus:border-gold cursor-pointer"
-                        style={{ borderRadius: "2px" }}
-                      >
-                        {STATUSES.map((s) => (
-                          <option key={s.id} value={s.id}>{s.label}</option>
-                        ))}
-                      </select>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={lead.status}
+                          onChange={(e) => handleStatusChange(lead.id, e.target.value as LeadStatus)}
+                          className="text-xs border border-cream-300 bg-cream-100 px-2 py-1 focus:outline-none focus:border-gold cursor-pointer"
+                          style={{ borderRadius: "2px" }}
+                        >
+                          {STATUSES.map((s) => (
+                            <option key={s.id} value={s.id}>{s.label}</option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => {
+                            if (window.confirm(`Remove lead "${lead.name}"? This cannot be undone.`)) {
+                              handleDelete(lead.id);
+                            }
+                          }}
+                          className="p-1 text-cream-400 hover:text-red-500 transition-colors shrink-0"
+                          aria-label="Remove lead"
+                          title="Remove lead"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, Star } from "lucide-react";
+import { ArrowDown, Star, X, Maximize2, Minimize2 } from "lucide-react";
 import Image from "next/image";
 
 export default function HeroSection() {
-  const [loaded, setLoaded] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [loaded,    setLoaded]    = useState(false);
+  const [mousePos,  setMousePos]  = useState({ x: 0, y: 0 });
+  const [showVideo,  setShowVideo]  = useState(true);
+  const [maximized,  setMaximized]  = useState(false);
 
   // Wait for the preloader-exit event before starting hero animations.
   // Falls back after 3s in case preloader is not rendered (e.g. fast reload).
@@ -233,6 +235,68 @@ export default function HeroSection() {
           50%       { transform: scale(1.05); opacity: 0.8; }
         }
       `}</style>
+
+      {/* Backdrop when maximized */}
+      {showVideo && maximized && (
+        <div
+          className="fixed inset-0 bg-charcoal/60 z-40 backdrop-blur-sm"
+          onClick={() => setMaximized(false)}
+        />
+      )}
+
+      {/* Floating video popup */}
+      {showVideo && (
+        <div
+          className="fixed z-50 shadow-lifted transition-all duration-500 ease-in-out"
+          style={{
+            borderRadius: "6px",
+            overflow: "hidden",
+            ...(maximized
+              ? {
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "min(90vw, 860px)",
+                }
+              : {
+                  bottom: "1rem",
+                  right: "1rem",
+                  width: "clamp(200px, 28vw, 320px)",
+                }),
+          }}
+        >
+          {/* Toolbar */}
+          <div className="absolute top-2 right-2 z-10 flex items-center gap-1.5">
+            <button
+              onClick={() => setMaximized((v) => !v)}
+              className="w-6 h-6 bg-charcoal/70 text-white flex items-center justify-center hover:bg-charcoal transition-colors"
+              style={{ borderRadius: "50%" }}
+              aria-label={maximized ? "Minimise video" : "Maximise video"}
+            >
+              {maximized ? <Minimize2 size={11} /> : <Maximize2 size={11} />}
+            </button>
+            <button
+              onClick={() => { setShowVideo(false); setMaximized(false); }}
+              className="w-6 h-6 bg-charcoal/70 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
+              style={{ borderRadius: "50%" }}
+              aria-label="Close video"
+            >
+              <X size={11} />
+            </button>
+          </div>
+
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full block object-cover"
+            style={{ aspectRatio: "16/9" }}
+          >
+            <source src="/videos/Hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
     </section>
   );
 }
