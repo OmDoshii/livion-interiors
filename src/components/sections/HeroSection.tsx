@@ -293,7 +293,10 @@ export default function HeroSection() {
             className="w-full block object-cover"
             style={{ aspectRatio: "16/9" }}
           >
-            <source src="/videos/Hero.mp4" type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dyykr4qs3/video/upload/v1777285190/Hero_umav1v.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
       )}
